@@ -113,16 +113,11 @@
             margin: 0 auto;
             padding: 2rem;
             display: grid;
-            grid-template-columns: 1fr; /* single column since upload box is removed */
+            grid-template-columns: 1fr 1fr;
             gap: 4rem;
             align-items: center;
-            justify-items: center; /* center items horizontally */
             position: relative;
             z-index: 2;
-        }
-
-        .hero-content {
-            text-align: center; /* center heading and paragraph */
         }
 
         .hero-content h1 {
@@ -144,7 +139,6 @@
             display: flex;
             gap: 1rem;
             margin-bottom: 2rem;
-            justify-content: center; /* center the buttons row */
         }
 
         .btn-primary {
@@ -321,9 +315,9 @@
 
         .pricing-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 2rem;
-            max-width: 1200px;
+            max-width: 1000px;
             margin: 0 auto;
         }
 
@@ -421,7 +415,6 @@
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
-            text-decoration: none;
         }
 
         .plan-btn.primary {
@@ -521,13 +514,6 @@
     <header class="header">
         <nav class="nav-container">
             <a href="{% url 'homepage' %}" class="logo">ThesisLens</a>
-            <ul class="nav-links">
-                <li><a href="#features">Features</a></li>
-                <li><a href="#pricing">Pricing</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="{% url 'contactus' %}">Contact</a></li>
-            </ul>
-            <a href="{% url 'loginpage' %}" class="signin-btn">Sign In</a>
         </nav>
     </header>
 
@@ -538,126 +524,46 @@
                 <h1>Transform Your Thesis Into Clear Insights</h1>
                 <p>Upload your research and let our AI-powered platform analyze, summarize, and visualize your thesis to make complex ideas crystal clear.</p>
                 <div class="cta-buttons">
-                    <a href="#pricing" class="btn-primary">Get Started </a>
                     <a href="#features" class="btn-secondary">Learn More</a>
                 </div>
             </div>
             
-        </div>
-    </section>
+            <div class="upload-section" id="upload">
+     <form method="POST" enctype="multipart/form-data">
+         {% csrf_token %}
+         <div class="form-group" style="margin-bottom: 20px;">
+             <label for="title" style="display: block; margin-bottom: 8px; color: #333; font-weight: 500;">Title:</label>
+             <input type="text" id="title" name="title" placeholder="Enter thesis title" style="width: 100%; padding: 10px; border: 2px solid #e1e5e9; border-radius: 8px; font-size: 1rem;">
+         </div>
+         <div class="upload-area">
+             <div class="upload-icon">📄</div>
+             <h3>Upload Your Thesis</h3>
+             <p>Select your PDF file below</p>
+ 
+             <input type="file" id="thesisFile" name="file" accept=".pdf,.doc,.docx" style="margin: 20px 0; padding: 10px; border: 2px solid #e1e5e9; border-radius: 8px; width: 100%;">
+             <button type="submit" class="upload-btn">Upload</button>
+         </div>
+     </form>
 
-    <!-- Features Section -->
-    <section class="features" id="features">
-        <div class="container">
-            <h2 class="section-title">Powerful Research Tools</h2>
-            <p class="section-subtitle">Everything you need to understand and present your research effectively</p>
-            
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">🤖</div>
-                    <h3>AI-Powered Analysis</h3>
-                    <p>Advanced algorithms analyze your thesis structure, identify key themes, and extract meaningful insights automatically.</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">📊</div>
-                    <h3>Visual Summaries</h3>
-                    <p>Transform complex research into clear charts, graphs, and visual representations that are easy to understand and share.</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">🎯</div>
-                    <h3>Key Insights Extraction</h3>
-                    <p>Automatically identify the most important findings, methodologies, and conclusions from your research work.</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">📝</div>
-                    <h3>Smart Summarization</h3>
-                    <p>Generate concise, accurate summaries of different sections, perfect for abstracts and presentations.</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">🔍</div>
-                    <h3>Citation Analysis</h3>
-                    <p>Track and analyze your references, identify citation patterns, and ensure comprehensive coverage.</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">💡</div>
-                    <h3>Research Recommendations</h3>
-                    <p>Get personalized suggestions for improving your thesis structure and identifying potential research gaps.</p>
-                </div>
+    {% if messages %}
+        {% for message in messages %}
+            <div class="flash-success" style="text-align:center; color:green; margin-top:1rem; padding: 10px; background: #d4edda; border: 1px solid #c3e6cb; border-radius: 8px;">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <p style="text-align: center; margin-top: 1rem; color: #666; font-size: 0.9rem;">
+        Supported formats: PDF, DOC, DOCX • Max file size: 50MB
+    </p>
+</div>
+
+                </p>
             </div>
         </div>
     </section>
 
-    <!-- Pricing Section -->
-    <section class="pricing" id="pricing">
-        <div class="container">
-            <h2 class="section-title">Choose Your Plan</h2>
-            <p class="section-subtitle">Start free and upgrade as your research needs grow</p>
-            
-            <div class="pricing-grid">
-                <!-- Free Plan -->
-                <div class="pricing-card">
-                    <div class="plan-name">Beginner</div>
-                    <div class="plan-price">$0<span>/month</span></div>
-                    <div class="plan-description">Perfect for getting started with basic thesis analysis</div>
-                    <ul class="plan-features">
-                        <li>Upload up to 1 thesis (50MB max)</li>
-                        <li>Basic AI summarization</li>
-                        <li>Simple visual charts</li>
-                        <li>PDF export</li>
-                        <li>Email support</li>
-                        <li>7-day data retention</li>
-                    </ul>
-                    <a href="{% url 'loginpage' %}" class="plan-btn secondary">Get Started Free</a>
-                </div>
 
-                <!-- Monthly Plan -->
-                <div class="pricing-card featured">
-                    <div class="popular-badge">Most Popular</div>
-                    <div class="plan-name">Pro Monthly</div>
-                    <div class="plan-price">$29<span>/month</span></div>
-                    <div class="plan-description">Advanced features for serious researchers</div>
-                    <ul class="plan-features">
-                        <li>Upload unlimited theses</li>
-                        <li>Advanced AI analysis</li>
-                        <li>Interactive visualizations</li>
-                        <li>Citation network analysis</li>
-                        <li>Research recommendations</li>
-                        <li>Priority support</li>
-                        <li>90-day data retention</li>
-                        <li>Export to multiple formats</li>
-                        <li>Collaboration tools</li>
-                    </ul>
-                    <a href="{% url 'loginpage' %}" class="plan-btn primary">Start Pro Trial</a>
-                </div>
-
-                <!-- Yearly Plan -->
-                <div class="pricing-card">
-                    <div class="plan-name">Pro Yearly</div>
-                    <div class="plan-price">$290<span>/year</span></div>
-                    <div class="plan-description">
-                        Same as Pro Monthly with 2 months free
-                        <br><small style="color: #28a745; font-weight: 600;">Save $58 per year!</small>
-                    </div>
-                    <ul class="plan-features">
-                        <li>Everything in Pro Monthly</li>
-                        <li>2 months free (17% discount)</li>
-                        <li>Unlimited data retention</li>
-                        <li>Advanced analytics dashboard</li>
-                        <li>Custom export templates</li>
-                        <li>API access</li>
-                        <li>White-label options</li>
-                        <li>Dedicated account manager</li>
-                    </ul>
-                    <a href="{% url 'loginpage' %}" class="plan-btn secondary">Save with Yearly</a>
-                </div>
-            </div>
-        </div>
-    </section>
 
     <!-- Footer -->
     <footer class="footer">
@@ -672,5 +578,16 @@
             <p>&copy; 2025 ThesisLens. All rights reserved. Research Made Clear.</p>
         </div>
     </footer>
+
+    <script>
+    // Hide success flash messages after 2 seconds
+    (function() {
+        var flashes = document.querySelectorAll('.flash-success');
+        if (!flashes || flashes.length === 0) return;
+        setTimeout(function() {
+            flashes.forEach(function(el) { el.style.display = 'none'; });
+        }, 2000);
+    })();
+    </script>
 </body>
 </html>

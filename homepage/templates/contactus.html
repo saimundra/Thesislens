@@ -439,11 +439,18 @@
                 Fill out the form below and we'll get back to you as soon as possible.
             </p>
 
-            <div class="success-message" id="successMessage">
+            {% if success %}
+            <div class="success-message" id="successMessage" style="display: block;">
                 Thank you for your message! We'll get back to you within 24 hours.
             </div>
+            {% else %}
+            <div class="success-message" id="successMessage" style="display: none;">
+                Thank you for your message! We'll get back to you within 24 hours.
+            </div>
+            {% endif %}
 
-            <form id="contactForm">
+            <form id="contactForm" method="post">
+                {% csrf_token %}
                 <div class="form-row">
                     <div class="form-group">
                         <label for="firstName">First Name</label>

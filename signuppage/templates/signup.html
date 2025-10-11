@@ -399,78 +399,141 @@
             <a href="{% url 'loginpage' %}" id="loginLink">Sign In Here</a>
         </div>
     </div>
+    <script>
+        (function() {
+            const form = document.getElementById('signupForm');
+            if (!form) return;
+
+            const passwordInput = document.getElementById('password');
+            const confirmInput = document.getElementById('confirmPassword');
+            const errorBox = document.getElementById('errorMessage');
+            const successBox = document.getElementById('successMessage');
+            const emailInput = document.getElementById('email');
+            const termsCheckbox = document.getElementById('terms');
+            const updatesCheckbox = document.getElementById('newsletter');
+            const submitBtn = document.getElementById('signupBtn');
+            const reqLen = document.getElementById('length');
+            const reqUpper = document.getElementById('uppercase');
+            const reqLower = document.getElementById('lowercase');
+            const reqNum = document.getElementById('number');
+
+            const strengthRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+
+            function showError(message) {
+                if (successBox) successBox.style.display = 'none';
+                if (errorBox) {
+                    errorBox.textContent = message;
+                    errorBox.style.display = 'block';
+                }
+            }
+
+            form.addEventListener('submit', function(e) {
+                if (!passwordInput || !confirmInput) return;
+                const pwd = passwordInput.value;
+                const confirm = confirmInput.value;
+                const email = emailInput ? emailInput.value.trim() : '';
+                
+                // Enforce password strength
+                if (!strengthRegex.test(pwd)) {
+                    e.preventDefault();
+                    showError('Password must be at least 8 characters with upper, lower, and a number.');
+                    passwordInput.focus();
+                    return false;
+                }
+
+                // Require both Terms and Updates checkboxes
+                const termsOk = termsCheckbox ? termsCheckbox.checked : false;
+                const updatesOk = updatesCheckbox ? updatesCheckbox.checked : false;
+                if (!termsOk || !updatesOk) {
+                    e.preventDefault();
+                    showError('Please accept Terms and enable updates to create an account.');
+                    if (!termsOk && termsCheckbox) {
+                        termsCheckbox.focus();
+                    } else if (updatesCheckbox) {
+                        updatesCheckbox.focus();
+                    }
+                    return false;
+                }
+
+                // Basic email check to complement the pattern attribute
+                const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+                if (emailInput && !emailRegex.test(email)) {
+                    e.preventDefault();
+                    showError('Please enter a valid email address.');
+                    emailInput.focus();
+                    return false;
+                }
+
+                if (pwd !== confirm) {
+                    e.preventDefault();
+                    showError('Passwords do not match.');
+                    confirmInput.focus();
+                    return false;
+                }
+
+                if (errorBox) errorBox.style.display = 'none';
+                if (successBox) successBox.style.display = 'block';
+            });
+
+            // Live validation feedback
+            if (passwordInput && confirmInput) {
+                function checkMatch() {
+                    if (!confirmInput.value) return;
+                    if (passwordInput.value !== confirmInput.value) {
+                        confirmInput.setCustomValidity('Passwords do not match');
+                    } else {
+                        confirmInput.setCustomValidity('');
+                    }
+                }
+                passwordInput.addEventListener('input', checkMatch);
+                confirmInput.addEventListener('input', checkMatch);
+            }
+
+            if (emailInput) {
+                function checkEmail() {
+                    const email = emailInput.value.trim();
+                    const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+                    if (!emailRegex.test(email)) {
+                        emailInput.setCustomValidity('Please enter a valid email address');
+                    } else {
+                        emailInput.setCustomValidity('');
+                    }
+                }
+                emailInput.addEventListener('input', checkEmail);
+            }
+
+            // Enable submit only when both checkboxes are checked
+            function updateSubmitState() {
+                const canSubmit = (termsCheckbox ? termsCheckbox.checked : false) && (updatesCheckbox ? updatesCheckbox.checked : false);
+                if (submitBtn) submitBtn.disabled = !canSubmit;
+            }
+            if (termsCheckbox) termsCheckbox.addEventListener('change', updateSubmitState);
+            if (updatesCheckbox) updatesCheckbox.addEventListener('change', updateSubmitState);
+            updateSubmitState();
+
+            // Live password strength validation
+            function validatePasswordStrength() {
+                if (!passwordInput) return;
+                const pwd = passwordInput.value;
+                const hasLen = pwd.length >= 8;
+                const hasUpper = /[A-Z]/.test(pwd);
+                const hasLower = /[a-z]/.test(pwd);
+                const hasNum = /\d/.test(pwd);
+
+                if (reqLen) reqLen.className = 'requirement ' + (hasLen ? 'valid' : 'invalid');
+                if (reqUpper) reqUpper.className = 'requirement ' + (hasUpper ? 'valid' : 'invalid');
+                if (reqLower) reqLower.className = 'requirement ' + (hasLower ? 'valid' : 'invalid');
+                if (reqNum) reqNum.className = 'requirement ' + (hasNum ? 'valid' : 'invalid');
+
+                if (hasLen && hasUpper && hasLower && hasNum) {
+                    passwordInput.setCustomValidity('');
+                } else {
+                    passwordInput.setCustomValidity('Password must be at least 8 chars with upper, lower, and a number.');
+                }
+            }
+            if (passwordInput) passwordInput.addEventListener('input', validatePasswordStrength);
+            validatePasswordStrength();
+        })();
+    </script>
 </body>
 </html>
-<script>
-    (function() {
-        const form = document.getElementById('signupForm');
-        if (!form) return;
-
-        const passwordInput = document.getElementById('password');
-        const confirmInput = document.getElementById('confirmPassword');
-        const errorBox = document.getElementById('errorMessage');
-        const successBox = document.getElementById('successMessage');
-        const emailInput = document.getElementById('email');
-
-        function showError(message) {
-            if (successBox) successBox.style.display = 'none';
-            if (errorBox) {
-                errorBox.textContent = message;
-                errorBox.style.display = 'block';
-            }
-        }
-
-        form.addEventListener('submit', function(e) {
-            if (!passwordInput || !confirmInput) return;
-            const pwd = passwordInput.value;
-            const confirm = confirmInput.value;
-            const email = emailInput ? emailInput.value.trim() : '';
-
-            // Basic email check to complement the pattern attribute
-            const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
-            if (emailInput && !emailRegex.test(email)) {
-                e.preventDefault();
-                showError('Please enter a valid email address.');
-                emailInput.focus();
-                return false;
-            }
-
-            if (pwd !== confirm) {
-                e.preventDefault();
-                showError('Passwords do not match.');
-                confirmInput.focus();
-                return false;
-            }
-
-            if (errorBox) errorBox.style.display = 'none';
-            if (successBox) successBox.style.display = 'block';
-        });
-
-        // Live validation feedback
-        if (passwordInput && confirmInput) {
-            function checkMatch() {
-                if (!confirmInput.value) return;
-                if (passwordInput.value !== confirmInput.value) {
-                    confirmInput.setCustomValidity('Passwords do not match');
-                } else {
-                    confirmInput.setCustomValidity('');
-                }
-            }
-            passwordInput.addEventListener('input', checkMatch);
-            confirmInput.addEventListener('input', checkMatch);
-        }
-
-        if (emailInput) {
-            function checkEmail() {
-                const email = emailInput.value.trim();
-                const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
-                if (!emailRegex.test(email)) {
-                    emailInput.setCustomValidity('Please enter a valid email address');
-                } else {
-                    emailInput.setCustomValidity('');
-                }
-            }
-            emailInput.addEventListener('input', checkEmail);
-        }
-    })();
-</script>

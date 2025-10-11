@@ -1,16 +1,10 @@
-from django.shortcuts import render
 from django.http import HttpResponse
 from django.template import loader
-from .models import Contact   
-
-
-# Homepage view
+from . models import Contact
 def homepage(request):
     template = loader.get_template("homepage.html")
-    return HttpResponse(template.render({}, request))
-
-
-# Contact Us view
+    context = {}
+    return HttpResponse(template.render(context, request))
 def contactus(request):
     template = loader.get_template("contactus.html")
     context = {}
@@ -21,9 +15,9 @@ def contactus(request):
         email = request.POST.get('email', '').strip()
         phone_number = request.POST.get('phone', '').strip()
         subject = request.POST.get('subject', '').strip()
-        description = request.POST.get('description', '').strip()
+        description = request.POST.get('message', '').strip() 
 
-        # ✅ Save to database
+        # Save to database
         Contact.objects.create(
             first_name=first_name,
             last_name=last_name,
@@ -33,6 +27,8 @@ def contactus(request):
             description=description,
         )
 
-        context['success'] = True  # To show success message in template
+        context['success'] = True
 
     return HttpResponse(template.render(context, request))
+    
+
