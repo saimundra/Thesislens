@@ -18,7 +18,6 @@
             overflow-x: hidden;
         }
 
-        /* Header */
         .header {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
@@ -51,42 +50,6 @@
             text-decoration: none;
         }
 
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 2rem;
-            margin: 0;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: #333;
-            font-weight: 500;
-            transition: color 0.3s ease;
-        }
-
-        .nav-links a:hover {
-            color: #667eea;
-        }
-
-        .signin-btn {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            padding: 0.7rem 1.5rem;
-            border: none;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        .signin-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
-        }
-
-        /* Hero Section */
         .hero {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
@@ -94,18 +57,6 @@
             align-items: center;
             position: relative;
             overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><defs><radialGradient id="a"><stop offset="0" stop-color="%23ffffff" stop-opacity="0.1"/><stop offset="1" stop-color="%23ffffff" stop-opacity="0"/></radialGradient></defs><circle cx="200" cy="200" r="100" fill="url(%23a)"/><circle cx="800" cy="300" r="150" fill="url(%23a)"/><circle cx="400" cy="700" r="80" fill="url(%23a)"/></svg>') no-repeat;
-            background-size: cover;
-            opacity: 0.3;
         }
 
         .hero-container {
@@ -135,51 +86,6 @@
             line-height: 1.6;
         }
 
-        .cta-buttons {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 2rem;
-        }
-
-        .btn-primary {
-            background: white;
-            color: #667eea;
-            padding: 1rem 2rem;
-            border: none;
-            border-radius: 12px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-block;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-        }
-
-        .btn-secondary {
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
-            padding: 1rem 2rem;
-            border: 2px solid rgba(255, 255, 255, 0.5);
-            border-radius: 12px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-block;
-        }
-
-        .btn-secondary:hover {
-            background: rgba(255, 255, 255, 0.3);
-            transform: translateY(-3px);
-        }
-
-        /* Upload Section */
         .upload-section {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
@@ -211,22 +117,6 @@
             color: #667eea;
         }
 
-        .upload-area h3 {
-            font-size: 1.5rem;
-            color: #333;
-            margin-bottom: 1rem;
-        }
-
-        .upload-area p {
-            color: #666;
-            font-size: 1rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .file-input {
-            display: none;
-        }
-
         .upload-btn {
             background: linear-gradient(135deg, #667eea, #764ba2);
             color: white;
@@ -243,207 +133,11 @@
             box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
         }
 
-        /* Features Section */
-        .features {
-            padding: 5rem 0;
-            background: #f8f9fa;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: #333;
-            margin-bottom: 1rem;
-        }
-
-        .section-subtitle {
-            text-align: center;
-            font-size: 1.2rem;
-            color: #666;
-            margin-bottom: 4rem;
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .feature-card {
-            background: white;
-            padding: 2rem;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-        }
-
-        .feature-icon {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            color: #667eea;
-        }
-
-        .feature-card h3 {
-            font-size: 1.3rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-            color: #333;
-        }
-
-        .feature-card p {
-            color: #666;
-            line-height: 1.6;
-        }
-
-        /* Pricing Section */
-        .pricing {
-            padding: 5rem 0;
-            background: white;
-        }
-
-        .pricing-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 2rem;
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-
-        .pricing-card {
-            background: white;
-            border-radius: 20px;
-            padding: 2.5rem;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-            position: relative;
-            border: 2px solid transparent;
-        }
-
-        .pricing-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
-        }
-
-        .pricing-card.featured {
-            border-color: #667eea;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            transform: scale(1.05);
-        }
-
-        .pricing-card.featured:hover {
-            transform: scale(1.05) translateY(-10px);
-        }
-
-        .pricing-card.featured .popular-badge {
-            position: absolute;
-            top: -15px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #ff6b6b;
-            color: white;
-            padding: 0.5rem 1.5rem;
-            border-radius: 25px;
-            font-size: 0.9rem;
-            font-weight: 600;
-        }
-
-        .plan-name {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-        }
-
-        .plan-price {
-            font-size: 3rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-        }
-
-        .plan-price span {
-            font-size: 1rem;
-            font-weight: 400;
-            opacity: 0.7;
-        }
-
-        .plan-description {
-            margin-bottom: 2rem;
-            opacity: 0.8;
-        }
-
-        .plan-features {
-            list-style: none;
-            margin-bottom: 2rem;
-        }
-
-        .plan-features li {
-            padding: 0.5rem 0;
-            position: relative;
-            padding-left: 2rem;
-        }
-
-        .plan-features li::before {
-            content: '✓';
-            position: absolute;
-            left: 0;
-            color: #28a745;
-            font-weight: bold;
-        }
-
-        .pricing-card.featured .plan-features li::before {
-            color: rgba(255, 255, 255, 0.9);
-        }
-
-        .plan-btn {
-            width: 100%;
-            padding: 1rem;
-            border: none;
-            border-radius: 12px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .plan-btn.primary {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-        }
-
-        .plan-btn.secondary {
-            background: white;
-            color: #667eea;
-            border: 2px solid #667eea;
-        }
-
-        .plan-btn:hover {
-            transform: translateY(-2px);
-        }
-
-        /* Footer */
         .footer {
             background: #2c3e50;
             color: white;
             padding: 3rem 0 2rem;
             text-align: center;
-        }
-
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
         }
 
         .footer-links {
@@ -463,131 +157,102 @@
         .footer-links a:hover {
             color: white;
         }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-
-            .hero-container {
-                grid-template-columns: 1fr;
-                text-align: center;
-                gap: 2rem;
-            }
-
-            .hero-content h1 {
-                font-size: 2.5rem;
-            }
-
-            .cta-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .pricing-card.featured {
-                transform: none;
-            }
-
-            .pricing-card.featured:hover {
-                transform: translateY(-10px);
-            }
-        }
-
-        @media (max-width: 480px) {
-            .nav-container {
-                padding: 0 1rem;
-            }
-
-            .hero-container {
-                padding: 1rem;
-            }
-
-            .container {
-                padding: 0 1rem;
-            }
-        }
     </style>
 </head>
 <body>
-    <!-- Header -->
     <header class="header">
         <nav class="nav-container">
             <a href="{% url 'homepage' %}" class="logo">ThesisLens</a>
         </nav>
     </header>
 
-    <!-- Hero Section -->
     <section class="hero">
         <div class="hero-container">
             <div class="hero-content">
                 <h1>Transform Your Thesis Into Clear Insights</h1>
-                <p>Upload your research and let our AI-powered platform analyze, summarize, and visualize your thesis to make complex ideas crystal clear.</p>
-                <div class="cta-buttons">
-                    <a href="#features" class="btn-secondary">Learn More</a>
-                </div>
+                <p>Upload your research and let our AI-powered platform analyze, summarize, and visualize your thesis.</p>
             </div>
-            
+
             <div class="upload-section" id="upload">
-     <form method="POST" enctype="multipart/form-data">
-         {% csrf_token %}
-         <div class="form-group" style="margin-bottom: 20px;">
-             <label for="title" style="display: block; margin-bottom: 8px; color: #333; font-weight: 500;">Title:</label>
-             <input type="text" id="title" name="title" placeholder="Enter thesis title" style="width: 100%; padding: 10px; border: 2px solid #e1e5e9; border-radius: 8px; font-size: 1rem;">
-         </div>
-         <div class="upload-area">
-             <div class="upload-icon">📄</div>
-             <h3>Upload Your Thesis</h3>
-             <p>Select your PDF file below</p>
- 
-             <input type="file" id="thesisFile" name="file" accept=".pdf,.doc,.docx" style="margin: 20px 0; padding: 10px; border: 2px solid #e1e5e9; border-radius: 8px; width: 100%;">
-             <button type="submit" class="upload-btn">Upload</button>
-         </div>
-     </form>
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="form-group" style="margin-bottom: 20px;">
+                        <label for="title" style="display: block; margin-bottom: 8px; color: #333; font-weight: 500;">Title:</label>
+                        <input type="text" id="title" name="title" placeholder="Enter thesis title" style="width: 100%; padding: 10px; border: 2px solid #e1e5e9; border-radius: 8px; font-size: 1rem;">
+                    </div>
 
-    {% if messages %}
-        {% for message in messages %}
-            <div class="flash-success" style="text-align:center; color:green; margin-top:1rem; padding: 10px; background: #d4edda; border: 1px solid #c3e6cb; border-radius: 8px;">
-                {{ message }}
-            </div>
-        {% endfor %}
-    {% endif %}
+                    <div class="upload-area">
+                        <div class="upload-icon">📄</div>
+                        <h3>Upload Your Thesis</h3>
+                        <p>Select your PDF file below</p>
 
-    <p style="text-align: center; margin-top: 1rem; color: #666; font-size: 0.9rem;">
-        Supported formats: PDF, DOC, DOCX • Max file size: 50MB
-    </p>
-</div>
+                        <input type="file" id="thesisFile" name="file" accept=".pdf,.doc,.docx" style="margin: 20px 0; padding: 10px; border: 2px solid #e1e5e9; border-radius: 8px; width: 100%;">
+                        <button type="submit" class="upload-btn">Upload</button>
+                    </div>
+                </form>
 
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="flash-success" style="text-align:center; color:green; margin-top:1rem; padding: 10px; background: #d4edda; border: 1px solid #c3e6cb; border-radius: 8px;">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+
+                <p style="text-align: center; margin-top: 1rem; color: #666; font-size: 0.9rem;">
+                    Supported formats: PDF, DOC, DOCX • Max file size: 50MB
                 </p>
+
+                {% if extracted_text %}
+                    <div style="background:#f8f9fa; padding:1rem; border-radius:8px; margin-top:1rem;">
+                        <h3 style="margin-bottom:8px;">Extracted Text Preview</h3>
+                        <pre style="white-space: pre-wrap; max-height: 320px; overflow:auto;">{{ extracted_text }}</pre>
+                    </div>
+                {% endif %}
+
+                {% if analysis %}
+                    <div style="background:#eef6ff; padding:1rem; border-radius:8px; margin-top:1rem;">
+                        <h3>Thesis AI Review</h3>
+
+                        <h4>📝 Summary:</h4>
+                        <p>{{ analysis.summary }}</p>
+
+                        <h4>✏️ Grammar Issues:</h4>
+                        <pre>{{ analysis.grammar }}</pre>
+
+                        <h4>📚 Citation Issues:</h4>
+                        <pre>{{ analysis.citations }}</pre>
+
+                        <h4>💡 Improvements:</h4>
+                        <pre>{{ analysis.improvements }}</pre>
+
+                        <h4>🌟 Suggestions:</h4>
+                        <pre>{{ analysis.suggestions }}</pre>
+                    </div>
+                {% endif %}
             </div>
         </div>
     </section>
 
-
-
-    <!-- Footer -->
     <footer class="footer">
-        <div class="footer-content">
-            <div class="footer-links">
-                <a href="#">Privacy Policy</a>
-                <a href="#">Terms of Service</a>
-                <a href="#">Help Center</a>
-                <a href="#">About Us</a>
-                <a href="contactus/">Contact</a>
-            </div>
-            <p>&copy; 2025 ThesisLens. All rights reserved. Research Made Clear.</p>
+        <div class="footer-links">
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+            <a href="#">Help Center</a>
+            <a href="#">About Us</a>
+            <a href="contactus/">Contact</a>
         </div>
+        <p>&copy; 2025 ThesisLens. All rights reserved. Research Made Clear.</p>
     </footer>
 
     <script>
-    // Hide success flash messages after 2 seconds
-    (function() {
-        var flashes = document.querySelectorAll('.flash-success');
-        if (!flashes || flashes.length === 0) return;
-        setTimeout(function() {
-            flashes.forEach(function(el) { el.style.display = 'none'; });
-        }, 2000);
-    })();
+        (function() {
+            var flashes = document.querySelectorAll('.flash-success');
+            if (!flashes || flashes.length === 0) return;
+            setTimeout(function() {
+                flashes.forEach(function(el) { el.style.display = 'none'; });
+            }, 2000);
+        })();
     </script>
 </body>
 </html>
