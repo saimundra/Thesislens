@@ -2,75 +2,73 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from .models import UploadedFile
 import os
-import fitz         # PyMuPDF
-from django.conf import settings
-from docx import Document  # optional, only if you pip installed python-docx
+import fitz  # PyMuPDF
+from docx import Document
+from services.gemini_client import analyze_thesis_text
 
 def uploadpage(request):
     if request.method == "POST":
         title = request.POST.get("title", "mythesis").strip()
         uploaded_file = request.FILES.get("file")
 
-        print(f"DEBUG: Title = {title}")
-        print(f"DEBUG: File = {uploaded_file}")
-        print(f"DEBUG: File name = {uploaded_file.name if uploaded_file else 'None'}")
-        print(f"DEBUG: File size = {uploaded_file.size if uploaded_file else 'None'}")
-
         if not uploaded_file:
             messages.error(request, "No file selected!")
             return render(request, 'upload.html')
 
-        # Optional: basic extension / content type check
         filename = uploaded_file.name.lower()
-        if not (filename.endswith('.pdf') or filename.endswith('.docx') or filename.endswith('.doc')):
-            messages.error(request, "Unsupported file type. Please upload PDF or DOC/DOCX.")
+        if not (filename.endswith('.pdf') or filename.endswith('.docx')):
+            messages.error(request, "Unsupported file type. Please upload PDF or DOCX.")
             return render(request, 'upload.html')
 
         try:
-            # Save uploaded file to model & media folder
+            # Save file to DB
             uploaded_record = UploadedFile.objects.create(title=title, file=uploaded_file)
-            print(f"DEBUG: File saved with ID: {uploaded_record.id}, path: {uploaded_record.file.path}")
-
             extracted_text = ""
 
-            # If PDF -> use PyMuPDF
+            # Extract text depending on file type
             if filename.endswith('.pdf'):
-                pdf_path = uploaded_record.file.path
-                # open pdf and extract text page by page
-                with fitz.open(pdf_path) as doc:
+                with fitz.open(uploaded_record.file.path) as doc:
                     for page in doc:
-                        # get_text() returns text; for more control you can use "text" or "blocks"
                         extracted_text += page.get_text()
-
-            # If DOCX -> use python-docx to extract text
             elif filename.endswith('.docx'):
-                docx_path = uploaded_record.file.path
-                doc = Document(docx_path)
+                doc = Document(uploaded_record.file.path)
                 paragraphs = [p.text for p in doc.paragraphs]
                 extracted_text = "\n".join(paragraphs)
 
-            # If old .doc, you may need antiword or convert to docx server-side (optional)
-            else:
-                # fallback: try reading bytes (not guaranteed). You can add conversion here.
-                extracted_text = ""
-
-            # Save extracted text back to DB
+            # Save extracted text
             uploaded_record.extracted_text = extracted_text
             uploaded_record.save()
-            print(f"DEBUG: Extracted text length = {len(extracted_text)}")
 
-            messages.success(request, f"File '{uploaded_file.name}' uploaded and processed successfully!")
+            print("DEBUG: Extracted text length =", len(extracted_text))
 
-            # Render the same upload page and show a preview of extracted text
+            # 🔥 Send extracted text to Gemini for analysis
+            try:
+                analysis = analyze_thesis_text(extracted_text)
+                print("DEBUG: Analysis returned:", analysis)
+            except Exception as e:
+                analysis = None
+                print("DEBUG: Gemini analysis failed:", e)
+
+            # Save analysis in DB
+            if analysis:
+                uploaded_record.summary = analysis.get('summary', '')
+                uploaded_record.grammar_issues = analysis.get('grammar', '')
+                uploaded_record.citations_issues = analysis.get('citations', '')
+                uploaded_record.improvement_suggestions = analysis.get('improvements', '')
+                uploaded_record.save()
+
+            messages.success(request, f"File '{uploaded_file.name}' uploaded successfully!")
+
+            # Render with analysis results
             return render(request, 'upload.html', {
                 'success': True,
-                'extracted_text': extracted_text[:4000],   # preview first 4k chars
+                'extracted_text': extracted_text[:4000],
+                'analysis': analysis,
                 'uploaded_record': uploaded_record,
             })
 
         except Exception as e:
-            print(f"DEBUG: Error saving/extracting file: {e}")
-            messages.error(request, f"Error uploading or processing file: {e}")
-            return render(request, 'upload.html')
+            messages.error(request, f"Error uploading or analyzing file: {e}")
+            print("DEBUG:", e)
 
     return render(request, 'upload.html')

@@ -210,24 +210,25 @@
                     </div>
                 {% endif %}
 
-                {% if analysis %}
+                <!-- Updated AI Analysis Section -->
+                {% if analysis or uploaded_record %}
                     <div style="background:#eef6ff; padding:1rem; border-radius:8px; margin-top:1rem;">
                         <h3>Thesis AI Review</h3>
 
                         <h4>📝 Summary:</h4>
-                        <p>{{ analysis.summary }}</p>
+                        <p>{{ analysis.summary|default:uploaded_record.summary }}</p>
 
                         <h4>✏️ Grammar Issues:</h4>
-                        <pre>{{ analysis.grammar }}</pre>
+                        <pre>{{ analysis.grammar|default:uploaded_record.grammar_issues }}</pre>
 
                         <h4>📚 Citation Issues:</h4>
-                        <pre>{{ analysis.citations }}</pre>
+                        <pre>{{ analysis.citations|default:uploaded_record.citations_issues }}</pre>
 
                         <h4>💡 Improvements:</h4>
-                        <pre>{{ analysis.improvements }}</pre>
+                        <pre>{{ analysis.improvements|default:uploaded_record.improvement_suggestions }}</pre>
 
                         <h4>🌟 Suggestions:</h4>
-                        <pre>{{ analysis.suggestions }}</pre>
+                        <pre>{{ analysis.suggestions|default:"" }}</pre>
                     </div>
                 {% endif %}
             </div>
