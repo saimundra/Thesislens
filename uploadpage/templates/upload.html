@@ -133,6 +133,241 @@
             box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
         }
 
+        /* Processing Modal */
+        .processing-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(8px);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .processing-modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 3rem 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+            animation: modalSlideIn 0.4s ease;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-30px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .modal-icon {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+        }
+
+        .modal-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+        }
+
+        .modal-subtitle {
+            font-size: 1rem;
+            color: #666;
+            margin-bottom: 2rem;
+        }
+
+        .progress-container {
+            width: 100%;
+            height: 12px;
+            background: #e9ecef;
+            border-radius: 20px;
+            overflow: hidden;
+            margin-bottom: 1rem;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            border-radius: 20px;
+            width: 0%;
+            transition: width 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(255, 255, 255, 0.3), 
+                transparent
+            );
+            animation: shimmer 1.5s infinite;
+        }
+
+        @keyframes shimmer {
+            0% {
+                transform: translateX(-100%);
+            }
+            100% {
+                transform: translateX(100%);
+            }
+        }
+
+        .progress-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .processing-steps {
+            margin-top: 1.5rem;
+            font-size: 0.9rem;
+            color: #888;
+            font-style: italic;
+        }
+
+        /* Results Section */
+        .results-section {
+            background: #f5f7fa;
+            padding: 5rem 0;
+            min-height: 100vh;
+        }
+
+        .results-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .results-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .results-header h2 {
+            font-size: 2.5rem;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        .thesis-title {
+            font-size: 1.2rem;
+            color: #666;
+            font-weight: 500;
+        }
+
+        .analysis-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            animation: slideUp 0.5s ease forwards;
+            opacity: 0;
+        }
+
+        @keyframes slideUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+        }
+
+        .analysis-card:nth-child(1) { animation-delay: 0.1s; }
+        .analysis-card:nth-child(2) { animation-delay: 0.2s; }
+        .analysis-card:nth-child(3) { animation-delay: 0.3s; }
+        .analysis-card:nth-child(4) { animation-delay: 0.4s; }
+        .analysis-card:nth-child(5) { animation-delay: 0.5s; }
+
+        .analysis-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .card-icon {
+            font-size: 1.8rem;
+        }
+
+        .card-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .card-content {
+            color: #555;
+            font-size: 1rem;
+            line-height: 1.8;
+        }
+
+        .card-content pre {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 8px;
+            white-space: pre-wrap;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            border-left: 4px solid #667eea;
+            margin: 0;
+        }
+
+        .summary-card {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+        }
+
         .footer {
             background: #2c3e50;
             color: white;
@@ -157,9 +392,59 @@
         .footer-links a:hover {
             color: white;
         }
+
+        @media (max-width: 768px) {
+            .hero-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-content p {
+                font-size: 1.1rem;
+            }
+
+            .results-header h2 {
+                font-size: 2rem;
+            }
+
+            .analysis-card {
+                padding: 1.5rem;
+            }
+
+            .modal-content {
+                padding: 2rem 1.5rem;
+            }
+
+            .modal-title {
+                font-size: 1.5rem;
+            }
+        }
     </style>
 </head>
 <body>
+    <!-- Processing Modal -->
+    <div class="processing-modal" id="processingModal">
+        <div class="modal-content">
+            <div class="modal-icon">🔍</div>
+            <h2 class="modal-title">Analyzing Your Thesis</h2>
+            <p class="modal-subtitle">Please wait while we process your document...</p>
+            
+            <div class="progress-container">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+            
+            <div class="progress-text" id="progressText">0%</div>
+            
+            <div class="processing-steps" id="processingStep">
+                Uploading document...
+            </div>
+        </div>
+    </div>
+
     <header class="header">
         <nav class="nav-container">
             <a href="{% url 'homepage' %}" class="logo">ThesisLens</a>
@@ -174,7 +459,7 @@
             </div>
 
             <div class="upload-section" id="upload">
-                <form method="POST" enctype="multipart/form-data">
+                <form method="POST" enctype="multipart/form-data" id="uploadForm">
                     {% csrf_token %}
                     <div class="form-group" style="margin-bottom: 20px;">
                         <label for="title" style="display: block; margin-bottom: 8px; color: #333; font-weight: 500;">Title:</label>
@@ -187,7 +472,7 @@
                         <p>Select your PDF file below</p>
 
                         <input type="file" id="thesisFile" name="file" accept=".pdf,.doc,.docx" style="margin: 20px 0; padding: 10px; border: 2px solid #e1e5e9; border-radius: 8px; width: 100%;">
-                        <button type="submit" class="upload-btn">Upload</button>
+                        <button type="submit" class="upload-btn">Upload & Analyze</button>
                     </div>
                 </form>
 
@@ -202,38 +487,78 @@
                 <p style="text-align: center; margin-top: 1rem; color: #666; font-size: 0.9rem;">
                     Supported formats: PDF, DOC, DOCX • Max file size: 50MB
                 </p>
-
-                {% if extracted_text %}
-                    <div style="background:#f8f9fa; padding:1rem; border-radius:8px; margin-top:1rem;">
-                        <h3 style="margin-bottom:8px;">Extracted Text Preview</h3>
-                        <pre style="white-space: pre-wrap; max-height: 320px; overflow:auto;">{{ extracted_text }}</pre>
-                    </div>
-                {% endif %}
-
-                <!-- Updated AI Analysis Section -->
-                {% if analysis or uploaded_record %}
-                    <div style="background:#eef6ff; padding:1rem; border-radius:8px; margin-top:1rem;">
-                        <h3>Thesis AI Review</h3>
-
-                        <h4>📝 Summary:</h4>
-                        <p>{{ analysis.summary|default:uploaded_record.summary }}</p>
-
-                        <h4>✏️ Grammar Issues:</h4>
-                        <pre>{{ analysis.grammar|default:uploaded_record.grammar_issues }}</pre>
-
-                        <h4>📚 Citation Issues:</h4>
-                        <pre>{{ analysis.citations|default:uploaded_record.citations_issues }}</pre>
-
-                        <h4>💡 Improvements:</h4>
-                        <pre>{{ analysis.improvements|default:uploaded_record.improvement_suggestions }}</pre>
-
-                        <h4>🌟 Suggestions:</h4>
-                        <pre>{{ analysis.suggestions|default:"" }}</pre>
-                    </div>
-                {% endif %}
             </div>
         </div>
     </section>
+
+    <!-- Results Section -->
+    {% if analysis or uploaded_record %}
+    <section class="results-section" id="results">
+        <div class="results-container">
+            <div class="results-header">
+                <h2>Analysis Results</h2>
+                <p class="thesis-title">{{ uploaded_record.title|default:"Your Thesis" }}</p>
+            </div>
+
+            <!-- Summary Card -->
+            <div class="analysis-card summary-card">
+                <div class="card-header">
+                    <span class="card-icon">📝</span>
+                    <h3 class="card-title">Summary</h3>
+                </div>
+                <div class="card-content">
+                    <p>{{ analysis.summary|default:uploaded_record.summary|default:"Analysis in progress..." }}</p>
+                </div>
+            </div>
+
+            <!-- Grammar Issues Card -->
+            <div class="analysis-card">
+                <div class="card-header">
+                    <span class="card-icon">✏️</span>
+                    <h3 class="card-title">Grammar Issues</h3>
+                </div>
+                <div class="card-content">
+                    <pre>{{ analysis.grammar|default:uploaded_record.grammar_issues|default:"No grammar issues detected." }}</pre>
+                </div>
+            </div>
+
+            <!-- Citation Issues Card -->
+            <div class="analysis-card">
+                <div class="card-header">
+                    <span class="card-icon">📚</span>
+                    <h3 class="card-title">Citation Issues</h3>
+                </div>
+                <div class="card-content">
+                    <pre>{{ analysis.citations|default:uploaded_record.citations_issues|default:"No citation issues found." }}</pre>
+                </div>
+            </div>
+
+            <!-- Improvement Suggestions Card -->
+            <div class="analysis-card">
+                <div class="card-header">
+                    <span class="card-icon">💡</span>
+                    <h3 class="card-title">Improvement Suggestions</h3>
+                </div>
+                <div class="card-content">
+                    <pre>{{ analysis.improvements|default:uploaded_record.improvement_suggestions|default:"No specific improvements suggested." }}</pre>
+                </div>
+            </div>
+
+            <!-- Additional Suggestions Card -->
+            {% if analysis.suggestions %}
+            <div class="analysis-card">
+                <div class="card-header">
+                    <span class="card-icon">🌟</span>
+                    <h3 class="card-title">Additional Suggestions</h3>
+                </div>
+                <div class="card-content">
+                    <pre>{{ analysis.suggestions }}</pre>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </section>
+    {% endif %}
 
     <footer class="footer">
         <div class="footer-links">
@@ -254,6 +579,110 @@
                 flashes.forEach(function(el) { el.style.display = 'none'; });
             }, 2000);
         })();
+
+        // Auto-scroll to results section when results are available
+        {% if analysis or uploaded_record %}
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                document.getElementById('results').scrollIntoView({ 
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }, 300);
+        });
+        {% endif %}
+
+        // Processing Modal Logic
+        document.getElementById('uploadForm').addEventListener('submit', function(e) {
+            const fileInput = document.getElementById('thesisFile');
+            const titleInput = document.getElementById('title');
+            
+            // Basic validation
+            if (!fileInput.files.length) {
+                alert('Please select a file to upload');
+                e.preventDefault();
+                return;
+            }
+            
+            if (!titleInput.value.trim()) {
+                alert('Please enter a thesis title');
+                e.preventDefault();
+                return;
+            }
+            
+            // Show processing modal - DO NOT prevent default, let form submit
+            showProcessingModal();
+            // Form will submit naturally after this
+        });
+
+        // Check if page was reloaded after form submission (processing in progress)
+        // This detects if we came back to the page while processing is still happening
+        window.addEventListener('load', function() {
+            // Check if there's a form submission in progress by looking at sessionStorage
+            const isProcessing = sessionStorage.getItem('thesisProcessing');
+            
+            if (isProcessing === 'true') {
+                // Show modal again if processing
+                showProcessingModal();
+                
+                // Check if results are now available
+                const resultsSection = document.getElementById('results');
+                if (resultsSection) {
+                    // Results are ready, hide modal
+                    sessionStorage.removeItem('thesisProcessing');
+                    document.getElementById('processingModal').classList.remove('active');
+                }
+            }
+        });
+
+       function showProcessingModal() {
+    const modal = document.getElementById('processingModal');
+    const progressBar = document.getElementById('progressBar');
+    const progressText = document.getElementById('progressText');
+    const processingStep = document.getElementById('processingStep');
+    
+    // Mark processing started
+    sessionStorage.setItem('thesisProcessing', 'true');
+    
+    modal.classList.add('active');
+    
+    const steps = [
+        "Uploading document...",
+        "Extracting text content...",
+        "Analyzing structure...",
+        "Checking grammar...",
+        "Reviewing citations...",
+        "Generating suggestions...",
+        "Finalizing analysis..."
+    ];
+
+    let currentProgress = 0;
+    let currentStepIndex = 0;
+
+    // Update UI instantly
+    progressBar.style.width = "0%";
+    progressText.textContent = "0%";
+    processingStep.textContent = steps[0];
+
+    const progressInterval = setInterval(() => {
+        if (currentProgress < 95) {
+            currentProgress += 6;
+            if (currentProgress > 95) currentProgress = 95;
+            progressBar.style.width = currentProgress + "%";
+            progressText.textContent = currentProgress + "%";
+
+            // Update processing step text roughly every ~16% (≈ every 3 intervals)
+            if (currentProgress >= (currentStepIndex + 1) * (95 / steps.length) && currentStepIndex < steps.length - 1) {
+                currentStepIndex++;
+                processingStep.textContent = steps[currentStepIndex];
+            }
+        } else {
+            clearInterval(progressInterval);
+        }
+    }, 2000); // Increase every 2 seconds
+}
+
+         
     </script>
 </body>
 </html>

@@ -217,7 +217,7 @@
             Login successful! Welcome to ThesisLens.
         </div>
 
-        <form id="loginForm" action ="{% url 'uploadpage' %}">
+        <form method="POST" id="loginForm" action ="{% url 'uploadpage' %}">
             <div class="form-group">
                 <label for="email">Email Address</label>
                 <input 
