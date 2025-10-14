@@ -218,6 +218,7 @@
         </div>
 
         <form method="POST" id="loginForm" action ="{% url 'uploadpage' %}">
+            {% csrf_token %}
             <div class="form-group">
                 <label for="email">Email Address</label>
                 <input 

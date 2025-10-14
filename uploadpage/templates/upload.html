@@ -353,15 +353,9 @@
             line-height: 1.8;
         }
 
-        .card-content pre {
-            background: #f8f9fa;
-            padding: 1rem;
-            border-radius: 8px;
-            white-space: pre-wrap;
-            font-family: 'Courier New', monospace;
-            font-size: 0.9rem;
-            border-left: 4px solid #667eea;
+        .card-content p {
             margin: 0;
+            white-space: pre-wrap;
         }
 
         .summary-card {
@@ -459,7 +453,7 @@
             </div>
 
             <div class="upload-section" id="upload">
-                <form method="POST" enctype="multipart/form-data" id="uploadForm">
+                <form method="POST" enctype="multipart/form-data" id="uploadForm" action ="{% url 'uploadpage' %}">
                     {% csrf_token %}
                     <div class="form-group" style="margin-bottom: 20px;">
                         <label for="title" style="display: block; margin-bottom: 8px; color: #333; font-weight: 500;">Title:</label>
@@ -518,7 +512,7 @@
                     <h3 class="card-title">Grammar Issues</h3>
                 </div>
                 <div class="card-content">
-                    <pre>{{ analysis.grammar|default:uploaded_record.grammar_issues|default:"No grammar issues detected." }}</pre>
+                    <p>{{ analysis.grammar|default:uploaded_record.grammar_issues|default:"No grammar issues detected." }}</p>
                 </div>
             </div>
 
@@ -529,7 +523,7 @@
                     <h3 class="card-title">Citation Issues</h3>
                 </div>
                 <div class="card-content">
-                    <pre>{{ analysis.citations|default:uploaded_record.citations_issues|default:"No citation issues found." }}</pre>
+                    <p>{{ analysis.citations|default:uploaded_record.citations_issues|default:"No citation issues found." }}</p>
                 </div>
             </div>
 
@@ -540,7 +534,7 @@
                     <h3 class="card-title">Improvement Suggestions</h3>
                 </div>
                 <div class="card-content">
-                    <pre>{{ analysis.improvements|default:uploaded_record.improvement_suggestions|default:"No specific improvements suggested." }}</pre>
+                    <p>{{ analysis.improvements|default:uploaded_record.improvement_suggestions|default:"No specific improvements suggested." }}</p>
                 </div>
             </div>
 
@@ -552,7 +546,7 @@
                     <h3 class="card-title">Additional Suggestions</h3>
                 </div>
                 <div class="card-content">
-                    <pre>{{ analysis.suggestions }}</pre>
+                    <p>{{ analysis.suggestions }}</p>
                 </div>
             </div>
             {% endif %}
